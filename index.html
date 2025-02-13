@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine? ❤️</title>
+    <style>
+        body {
+            text-align: center;
+            background-color: pink;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        .gif-container {
+            display: none;
+            margin-top: 20px;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin: 10px;
+        }
+        .yes-btn {
+            background-color: #ff69b4;
+            color: white;
+        }
+        .no-btn {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        .message {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        @keyframes confetti {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
+        }
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: red;
+            top: 0;
+            left: calc(10% + 80% * var(--x));
+            animation: confetti 3s linear infinite;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Will you be my Valentine? ❤️</h1>
+        <button class="yes-btn" onclick="acceptLove()" id="yesButton">Yes</button>
+        <button class="no-btn" onclick="rejectLove()" id="noButton">No</button>
+        <p class="message" id="message"></p>
+        <div class="gif-container" id="gifContainer">
+            <img src="B8A844AE-39FD-45C7-B030-D538D0B30965.gif" width="300">
+            <h2>YAYAYAYAYAYAY! I LOVE YOU SO MUCH MY SWEET LITTLE KITTEN ❤️</h2>
+        </div>
+    </div>
+
+    <script>
+        let noCount = 0;
+        const noMessages = [
+            "Are you sure? 😢",
+            "TF Amina I’ll kill u 😡",
+            "Why mommy? 🥺",
+            "You have no choice! 😈",
+            "JUST SAY YES ALREADY! 😡"
+        ];
+
+        function acceptLove() {
+            document.getElementById("gifContainer").style.display = "block";
+            document.getElementById("message").textContent = "Best choice ever! 🎉💖";
+            launchConfetti();
+        }
+
+        function rejectLove() {
+            let noButton = document.getElementById("noButton");
+            let yesButton = document.getElementById("yesButton");
+            let message = document.getElementById("message");
+
+            if (noCount < noMessages.length) {
+                message.textContent = noMessages[noCount];
+            } else {
+                message.textContent = "You're out of options! SAY YES! 😤";
+            }
+
+            noButton.style.transform = `scale(${1 - noCount * 0.2})`;
+            yesButton.style.transform = `scale(${1 + noCount * 0.2})`;
+
+            if (noCount === 5) {
+                noButton.style.display = "none";
+            }
+            noCount++;
+        }
+
+        function launchConfetti() {
+            for (let i = 0; i < 30; i++) {
+                let confetti = document.createElement("div");
+                confetti.classList.add("confetti");
+                confetti.style.setProperty("--x", Math.random());
+                document.body.appendChild(confetti);
+                setTimeout(() => confetti.remove(), 3000);
+            }
+        }
+    </script>
+
+</body>
+</html>
